@@ -10,21 +10,22 @@ import UIKit
 
 class CoalscingOperation: NSOperation {
     
-    //MARK: Accessors
+    // MARK: Accessors
 
-    var completion : ((successful: Bool) -> (Void))?
-    var callBackQueue : NSOperationQueue
+    var identifier: String?
     
-    //MARK: Init
+    var completion: (QueueManager.CompletionClosure)?
+    private var callBackQueue: NSOperationQueue
     
-    init(completion: ((successful: Bool) -> Void)?) {
-        self.completion = completion
+    // MARK: Init
+    
+    override init() {
         self.callBackQueue = NSOperationQueue.currentQueue()!
         
         super.init()
     }
     
-    //MARK: Main
+    // MARK: Main
     
     override func main() {
         super.main()

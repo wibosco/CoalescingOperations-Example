@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		91A968D71D6E48F900902542 /* CoalescingOperations_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968D61D6E48F900902542 /* CoalescingOperations_ExampleTests.swift */; };
+		915FB96F1D6E5DCB00FCB277 /* QueueManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FB96E1D6E5DCB00FCB277 /* QueueManagerTests.swift */; };
+		915FB9701D6E5E7600FCB277 /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A969021D6E4A2500902542 /* QueueManager.swift */; };
+		915FB9711D6E5E7C00FCB277 /* CoalescingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968FF1D6E4A2500902542 /* CoalescingOperation.swift */; };
+		915FB9721D6E5E7F00FCB277 /* CoalescingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968FD1D6E4A2500902542 /* CoalescingManager.swift */; };
 		91A968EC1D6E493E00902542 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968E21D6E493E00902542 /* AppDelegate.swift */; };
 		91A968F11D6E493E00902542 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968EB1D6E493E00902542 /* ViewController.swift */; };
 		91A968F91D6E496200902542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91A968F31D6E496200902542 /* Assets.xcassets */; };
 		91A968FA1D6E496200902542 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A968F51D6E496200902542 /* LaunchScreen.storyboard */; };
 		91A968FB1D6E496200902542 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91A968F71D6E496200902542 /* Main.storyboard */; };
-		91A969031D6E4A2500902542 /* CoalscingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968FD1D6E4A2500902542 /* CoalscingManager.swift */; };
-		91A969041D6E4A2500902542 /* CoalscingnOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968FF1D6E4A2500902542 /* CoalscingnOperation.swift */; };
+		91A969031D6E4A2500902542 /* CoalescingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968FD1D6E4A2500902542 /* CoalescingManager.swift */; };
+		91A969041D6E4A2500902542 /* CoalescingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A968FF1D6E4A2500902542 /* CoalescingOperation.swift */; };
 		91A969051D6E4A2500902542 /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A969021D6E4A2500902542 /* QueueManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,9 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		915FB96E1D6E5DCB00FCB277 /* QueueManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueManagerTests.swift; sourceTree = "<group>"; };
 		91A968BE1D6E48F900902542 /* CoalescingOperations-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoalescingOperations-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91A968D21D6E48F900902542 /* CoalescingOperations-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoalescingOperations-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		91A968D61D6E48F900902542 /* CoalescingOperations_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoalescingOperations_ExampleTests.swift; sourceTree = "<group>"; };
 		91A968D81D6E48F900902542 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A968E21D6E493E00902542 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91A968E31D6E493E00902542 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -39,8 +42,8 @@
 		91A968F31D6E496200902542 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91A968F61D6E496200902542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91A968F81D6E496200902542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		91A968FD1D6E4A2500902542 /* CoalscingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoalscingManager.swift; sourceTree = "<group>"; };
-		91A968FF1D6E4A2500902542 /* CoalscingnOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoalscingnOperation.swift; sourceTree = "<group>"; };
+		91A968FD1D6E4A2500902542 /* CoalescingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoalescingManager.swift; sourceTree = "<group>"; };
+		91A968FF1D6E4A2500902542 /* CoalescingOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoalescingOperation.swift; sourceTree = "<group>"; };
 		91A969021D6E4A2500902542 /* QueueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,8 +98,8 @@
 		91A968D51D6E48F900902542 /* CoalescingOperations-ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				91A968D61D6E48F900902542 /* CoalescingOperations_ExampleTests.swift */,
 				91A968D81D6E48F900902542 /* Info.plist */,
+				915FB96E1D6E5DCB00FCB277 /* QueueManagerTests.swift */,
 			);
 			path = "CoalescingOperations-ExampleTests";
 			sourceTree = "<group>";
@@ -147,7 +150,7 @@
 		91A968FC1D6E4A2500902542 /* Coalescing */ = {
 			isa = PBXGroup;
 			children = (
-				91A968FD1D6E4A2500902542 /* CoalscingManager.swift */,
+				91A968FD1D6E4A2500902542 /* CoalescingManager.swift */,
 				91A968FE1D6E4A2500902542 /* Operations */,
 			);
 			path = Coalescing;
@@ -156,7 +159,7 @@
 		91A968FE1D6E4A2500902542 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				91A968FF1D6E4A2500902542 /* CoalscingnOperation.swift */,
+				91A968FF1D6E4A2500902542 /* CoalescingOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -281,8 +284,8 @@
 				91A969051D6E4A2500902542 /* QueueManager.swift in Sources */,
 				91A968F11D6E493E00902542 /* ViewController.swift in Sources */,
 				91A968EC1D6E493E00902542 /* AppDelegate.swift in Sources */,
-				91A969041D6E4A2500902542 /* CoalscingnOperation.swift in Sources */,
-				91A969031D6E4A2500902542 /* CoalscingManager.swift in Sources */,
+				91A969041D6E4A2500902542 /* CoalescingOperation.swift in Sources */,
+				91A969031D6E4A2500902542 /* CoalescingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +293,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91A968D71D6E48F900902542 /* CoalescingOperations_ExampleTests.swift in Sources */,
+				915FB9701D6E5E7600FCB277 /* QueueManager.swift in Sources */,
+				915FB9711D6E5E7C00FCB277 /* CoalescingOperation.swift in Sources */,
+				915FB9721D6E5E7F00FCB277 /* CoalescingManager.swift in Sources */,
+				915FB96F1D6E5DCB00FCB277 /* QueueManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +480,7 @@
 				91A968DD1D6E48F900902542 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91A968DE1D6E48F900902542 /* Build configuration list for PBXNativeTarget "CoalescingOperations-ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +489,7 @@
 				91A968E01D6E48F900902542 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
