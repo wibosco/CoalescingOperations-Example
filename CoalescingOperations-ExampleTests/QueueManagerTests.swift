@@ -29,60 +29,60 @@ class QueueManagerTests: XCTestCase {
     
     // MARK: Tests
     
-    // MARK: AddNewCompletionBlock
+    // MARK: addNewCompletionClosure
     
-    func test_addNewCompletionBlock_addBlock() {
-        queueManager.addNewCompletionBlock({ (successful) in
+    func test_addNewCompletionClosure_addClosure() {
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: "test_identifier")
         
-        XCTAssertEqual(queueManager.completionBlocks.count, 1)
+        XCTAssertEqual(queueManager.completionClosures.count, 1)
     }
     
-    func test_addNewCompletionBlock_addMultipleUniqueBlocks() {
-        queueManager.addNewCompletionBlock({ (successful) in
+    func test_addNewCompletionClosure_addMultipleUniqueClosures() {
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: "test_identifierA")
         
-        queueManager.addNewCompletionBlock({ (successful) in
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: "test_identifierB")
         
-        XCTAssertEqual(queueManager.completionBlocks.count, 2)
+        XCTAssertEqual(queueManager.completionClosures.count, 2)
     }
     
-    func test_addNewCompletionBlock_addMultipleSameIdentifierBlocks() {
-        queueManager.addNewCompletionBlock({ (successful) in
+    func test_addNewCompletionClosure_addMultipleSameIdentifierClosures() {
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: "test_identifier")
         
-        queueManager.addNewCompletionBlock({ (successful) in
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: "test_identifier")
         
-        XCTAssertEqual(queueManager.completionBlocks.count, 1)
+        XCTAssertEqual(queueManager.completionClosures.count, 1)
     }
     
-    // MARK: CompletedBlocks
+    // MARK: CompletedClosures
     
-    func test_completedBlocks_mutiple() {
+    func test_completedClosures_mutiple() {
         let identifier = "test_identifier"
         
-        queueManager.addNewCompletionBlock({ (successful) in
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: identifier)
         
-        queueManager.addNewCompletionBlock({ (successful) in
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: identifier)
         
-        queueManager.addNewCompletionBlock({ (successful) in
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: "test_identifier_should_not_be_returned")
         
-        let blocks = queueManager.completionBlocks(identifier)!
+        let Closures = queueManager.completionClosures(identifier)!
         
-        XCTAssertEqual(2, blocks.count)
+        XCTAssertEqual(2, Closures.count)
     }
     
     // MARK: OperationIdentifierExistsOnQueue
@@ -106,19 +106,19 @@ class QueueManagerTests: XCTestCase {
     
     // MARK: Clear
     
-    func test_clearBlocks_removedAll() {
+    func test_clearClosures_removedAll() {
         let identifier = "test_identifier"
         
-        queueManager.addNewCompletionBlock({ (successful) in
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: identifier)
         
-        queueManager.addNewCompletionBlock({ (successful) in
+        queueManager.addNewCompletionClosure({ (successful) in
             
             }, identifier: identifier)
         
-        queueManager.clearBlocks(identifier)
+        queueManager.clearClosures(identifier)
         
-        XCTAssertEqual(0, queueManager.completionBlocks.count)
+        XCTAssertEqual(0, queueManager.completionClosures.count)
     }
 }

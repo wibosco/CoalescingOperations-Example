@@ -20,10 +20,10 @@ class QueueManager: NSObject {
         return queue;
     }()
     
-    lazy var completionBlocks: [String: [CompletionClosure]] = {
-        let completionBlocks = [String: [CompletionClosure]]()
+    lazy var completionClosures: [String: [CompletionClosure]] = {
+        let completionClosures = [String: [CompletionClosure]]()
         
-        return completionBlocks
+        return completionClosures
     }()
     
     // MARK: - SharedInstance
@@ -32,19 +32,19 @@ class QueueManager: NSObject {
     
     // MARK: - Callbacks
     
-    func addNewCompletionBlock(completion: (CompletionClosure), identifier: String) {
-        var blocks = completionBlocks[identifier]
+    func addNewCompletionClosure(completion: (CompletionClosure), identifier: String) {
+        var closures = completionClosures[identifier]
         
-        if blocks == nil {
-            blocks = [CompletionClosure]()
+        if closures == nil {
+            closures = [CompletionClosure]()
         }
         
-        blocks!.append(completion)
-        completionBlocks[identifier] = blocks!
+        closures!.append(completion)
+        completionClosures[identifier] = closures!
     }
     
-    func completionBlocks(identifier: String) -> [CompletionClosure]? {
-        return completionBlocks[identifier]
+    func completionClosures(identifier: String) -> [CompletionClosure]? {
+        return completionClosures[identifier]
     }
     
     // MARK: Existing
@@ -60,7 +60,7 @@ class QueueManager: NSObject {
     
     // MARK: Clear
     
-    func clearBlocks(identifier: String) {
-        completionBlocks.removeValueForKey(identifier)
+    func clearClosures(identifier: String) {
+        completionClosures.removeValueForKey(identifier)
     }
 }

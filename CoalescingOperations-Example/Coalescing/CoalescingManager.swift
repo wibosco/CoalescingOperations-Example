@@ -16,7 +16,7 @@ class CoalescingManager: NSObject {
         let coalescingOperationExampleIdentifier = "coalescingOperationExampleIdentifier"
         
         if let completion = completion {
-            QueueManager.sharedInstance.addNewCompletionBlock(completion, identifier: coalescingOperationExampleIdentifier)
+            QueueManager.sharedInstance.addNewCompletionClosure(completion, identifier: coalescingOperationExampleIdentifier)
         }
         
         if QueueManager.sharedInstance.operationIdentifierExistsOnQueue(coalescingOperationExampleIdentifier) {
@@ -24,14 +24,14 @@ class CoalescingManager: NSObject {
             let operation = CoalscingOperation()
             operation.identifier = coalescingOperationExampleIdentifier
             operation.completion = {(successful) in
-                let closures = QueueManager.sharedInstance.completionBlocks(coalescingOperationExampleIdentifier)
+                let closures = QueueManager.sharedInstance.completionClosures(coalescingOperationExampleIdentifier)
                 
                 if let closures = closures {
                     for closure in closures {
                         closure(successful: successful)
                     }
                     
-                    QueueManager.sharedInstance.clearBlocks(coalescingOperationExampleIdentifier)
+                    QueueManager.sharedInstance.clearClosures(coalescingOperationExampleIdentifier)
                 }
             }
             
