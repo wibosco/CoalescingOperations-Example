@@ -57,4 +57,10 @@ class QueueManager: NSObject {
         
         return exists
     }
+    
+    // MARK: Clear
+    
+    func clearBlocks(identifier: String) {
+        completionBlocks.removeValueForKey(identifier)
+    }
 }

@@ -101,6 +101,24 @@ class QueueManagerTests: XCTestCase {
         operation.identifier = "test_identifier"
         queueManager.queue.addOperation(operation)
         
-        XCTAssertTrue(queueManager.operationIdentifierExistsOnQueue("test_identifier_not_on_queue"))
+        XCTAssertFalse(queueManager.operationIdentifierExistsOnQueue("test_identifier_not_on_queue"))
+    }
+    
+    // MARK: Clear
+    
+    func test_clearBlocks_removedAll() {
+        let identifier = "test_identifier"
+        
+        queueManager.addNewCompletionBlock({ (successful) in
+            
+            }, identifier: identifier)
+        
+        queueManager.addNewCompletionBlock({ (successful) in
+            
+            }, identifier: identifier)
+        
+        queueManager.clearBlocks(identifier)
+        
+        XCTAssertEqual(0, queueManager.completionBlocks.count)
     }
 }

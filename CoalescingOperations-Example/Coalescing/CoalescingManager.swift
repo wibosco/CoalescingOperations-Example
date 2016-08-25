@@ -30,6 +30,8 @@ class CoalescingManager: NSObject {
                     for closure in closures {
                         closure(successful: successful)
                     }
+                    
+                    QueueManager.sharedInstance.clearBlocks(coalescingOperationExampleIdentifier)
                 }
             }
             
