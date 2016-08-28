@@ -14,7 +14,7 @@ class QueueManager: NSObject {
     
     // MARK: - Accessors
     
-    private lazy var queue: NSOperationQueue = {
+    lazy var queue: NSOperationQueue = {
         let queue = NSOperationQueue()
         
         return queue;
@@ -58,7 +58,7 @@ class QueueManager: NSObject {
     func operationIdentifierExistsOnQueue(identifier: String) -> Bool {
         let operations = self.queue.operations
         
-        let identifiers = (operations as! [CoalscingOperation]).map{$0.identifier}
+        let identifiers = (operations as! [CoalescingOperation]).map{$0.identifier}
         let exists = identifiers.contains({ identifier == $0 })
         
         return exists

@@ -1,5 +1,5 @@
 //
-//  QuestionsRetrievalOperation.swift
+//  CoalescingOperation.swift
 //  CoalescingOperations-Example
 //
 //  Created by Boles on 28/02/2016.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CoalscingOperation: NSOperation {
+class CoalescingOperation: NSOperation {
     
     // MARK: Accessors
 

@@ -1,5 +1,5 @@
 //
-//  CoalscingAPIManager.swift
+//  CoalscingManager.swift
 //  CoalescingOperations-Example
 //
 //  Created by Boles on 28/02/2016.
@@ -19,10 +19,8 @@ class CoalescingManager: NSObject {
             queueManager.addNewCompletionClosure(completion, identifier: coalescingOperationExampleIdentifier)
         }
         
-        if queueManager.operationIdentifierExistsOnQueue(coalescingOperationExampleIdentifier) {
-            
-            
-            let operation = CoalscingOperation()
+        if !queueManager.operationIdentifierExistsOnQueue(coalescingOperationExampleIdentifier) {
+            let operation = CoalescingOperation()
             operation.identifier = coalescingOperationExampleIdentifier
             operation.completion = {(successful) in
                 let closures = queueManager.completionClosures(coalescingOperationExampleIdentifier)

@@ -8,32 +8,18 @@
 
 import XCTest
 
-class QueueManagerSpy: QueueManager {
-    lazy var queue: NSOperationQueue = {
-        let queue = NSOperationQueue()
-        queue.suspended = true
-        
-        return queue;
-    }()
-}
-
 class QueueManagerTests: XCTestCase {
     
     // MARK: Accessors
     
-    var queueManager: QueueManagerSpy!
+    var queueManager: QueueManager!
     
     // MARK: Lifecycle
     
     override func setUp() {
         super.setUp()
         
-        queueManager = QueueManagerSpy()
-    }
-    
-    override func tearDown() {
-        
-        super.tearDown()
+        queueManager = QueueManager()
     }
     
     // MARK: Tests
@@ -110,17 +96,17 @@ class QueueManagerTests: XCTestCase {
     
     func test_operationIdentifierExistsOnQueue_added() {
         let identifier = "test_identifier"
-        let operation = CoalscingOperation()
+        let operation = CoalescingOperation()
         operation.identifier = identifier
-        queueManager.queue.addOperation(operation)
+        queueManager.enqueue(operation)
         
         XCTAssertTrue(queueManager.operationIdentifierExistsOnQueue(identifier))
     }
     
     func test_operationIdentifierExistsOnQueue_notAdded() {
-        let operation = CoalscingOperation()
+        let operation = CoalescingOperation()
         operation.identifier = "test_identifier"
-        queueManager.queue.addOperation(operation)
+        queueManager.enqueue(operation)
         
         XCTAssertFalse(queueManager.operationIdentifierExistsOnQueue("test_identifier_not_on_queue"))
     }
