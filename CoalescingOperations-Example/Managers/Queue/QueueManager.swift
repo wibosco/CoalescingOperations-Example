@@ -6,7 +6,7 @@
 //  Copyright © 2016 Boles. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class QueueManager: NSObject {
     
@@ -14,7 +14,7 @@ class QueueManager: NSObject {
     
     // MARK: - Accessors
     
-    lazy var queue: NSOperationQueue = {
+    private lazy var queue: NSOperationQueue = {
         let queue = NSOperationQueue()
         
         return queue;
@@ -29,6 +29,12 @@ class QueueManager: NSObject {
     // MARK: - SharedInstance
     
     static let sharedInstance = QueueManager()
+    
+    // MARK: Addition
+    
+    func enqueue(operation: NSOperation) {
+        queue.addOperation(operation)
+    }
     
     // MARK: - Callbacks
     

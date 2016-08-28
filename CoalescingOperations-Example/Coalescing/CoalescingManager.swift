@@ -12,30 +12,31 @@ class CoalescingManager: NSObject {
     
     // MARK: - Add
     
-    class func addCoalescingOperation(completion:(QueueManager.CompletionClosure)?) {
+    class func addCoalescingOperation(queueManager: QueueManager = QueueManager.sharedInstance, completion: (QueueManager.CompletionClosure)?) {
         let coalescingOperationExampleIdentifier = "coalescingOperationExampleIdentifier"
         
         if let completion = completion {
-            QueueManager.sharedInstance.addNewCompletionClosure(completion, identifier: coalescingOperationExampleIdentifier)
+            queueManager.addNewCompletionClosure(completion, identifier: coalescingOperationExampleIdentifier)
         }
         
-        if QueueManager.sharedInstance.operationIdentifierExistsOnQueue(coalescingOperationExampleIdentifier) {
+        if queueManager.operationIdentifierExistsOnQueue(coalescingOperationExampleIdentifier) {
+            
             
             let operation = CoalscingOperation()
             operation.identifier = coalescingOperationExampleIdentifier
             operation.completion = {(successful) in
-                let closures = QueueManager.sharedInstance.completionClosures(coalescingOperationExampleIdentifier)
+                let closures = queueManager.completionClosures(coalescingOperationExampleIdentifier)
                 
                 if let closures = closures {
                     for closure in closures {
                         closure(successful: successful)
                     }
                     
-                    QueueManager.sharedInstance.clearClosures(coalescingOperationExampleIdentifier)
+                    queueManager.clearClosures(coalescingOperationExampleIdentifier)
                 }
             }
             
-            QueueManager.sharedInstance.queue.addOperation(operation)
+            queueManager.enqueue(operation)
         }
     }
 }

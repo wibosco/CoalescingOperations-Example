@@ -6,7 +6,7 @@
 //  Copyright © 2016 Boles. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class CoalscingOperation: NSOperation {
     
@@ -23,6 +23,12 @@ class CoalscingOperation: NSOperation {
         self.callBackQueue = NSOperationQueue.currentQueue()!
         
         super.init()
+    }
+    
+    // MARK:
+    
+    override var asynchronous: Bool {
+        return true
     }
     
     // MARK: Main

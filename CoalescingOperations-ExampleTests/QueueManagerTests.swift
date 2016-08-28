@@ -8,18 +8,27 @@
 
 import XCTest
 
+class QueueManagerSpy: QueueManager {
+    lazy var queue: NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.suspended = true
+        
+        return queue;
+    }()
+}
+
 class QueueManagerTests: XCTestCase {
     
     // MARK: Accessors
     
-    var queueManager: QueueManager!
+    var queueManager: QueueManagerSpy!
     
     // MARK: Lifecycle
     
     override func setUp() {
         super.setUp()
         
-        queueManager = QueueManager()
+        queueManager = QueueManagerSpy()
     }
     
     override func tearDown() {
@@ -29,7 +38,19 @@ class QueueManagerTests: XCTestCase {
     
     // MARK: Tests
     
-    // MARK: addNewCompletionClosure
+    // MARK: Enqueue
+    
+    func test_enqueue_count() {
+        let operationA = NSOperation()
+        let operationB = NSOperation()
+        
+        queueManager.enqueue(operationA)
+        queueManager.enqueue(operationB)
+        
+        XCTAssertEqual(queueManager.queue.operationCount, 2)
+    }
+    
+    // MARK: AddNewCompletionClosure
     
     func test_addNewCompletionClosure_addClosure() {
         queueManager.addNewCompletionClosure({ (successful) in
