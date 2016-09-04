@@ -1,5 +1,5 @@
 //
-//  CoalescingManagerTests.swift
+//  CoalescingExampleManagerTests.swift
 //  CoalescingOperations-Example
 //
 //  Created by William Boles on 26/08/2016.
@@ -55,7 +55,7 @@ class QueueManagerSpy: QueueManager {
     }
 }
 
-class CoalescingManagerTests: XCTestCase {
+class CoalescingExampleManagerTests: XCTestCase {
     
     // MARK: - Accessors
     
@@ -73,70 +73,70 @@ class CoalescingManagerTests: XCTestCase {
     
     // MARK: Added
     
-    func test_addCoalescingOperation_addedToQueue() {
-        CoalescingManager.addCoalescingOperation(queueManager, completion: nil)
+    func test_addExampleCoalescingOperation_addedToQueue() {
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager, completion: nil)
 
         XCTAssertEqual(1, queueManager.numberOfTimesEnqueuedWasCalled)
     }
     
-    func test_addCoalescingOperation_onlyOneOperationAddedToQueueWithSameIdentifier() {
-        CoalescingManager.addCoalescingOperation(queueManager, completion: nil)
-        CoalescingManager.addCoalescingOperation(queueManager, completion: nil)
+    func test_addExampleCoalescingOperation_onlyOneOperationAddedToQueueWithSameIdentifier() {
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager, completion: nil)
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager, completion: nil)
         
         XCTAssertEqual(1, queueManager.numberOfTimesEnqueuedWasCalled)
     }
     
-    func test_addCoalescingOperation_identifierUsedToCheckExistenceOnQueue() {
-        CoalescingManager.addCoalescingOperation(queueManager, completion: nil)
+    func test_addExampleCoalescingOperation_identifierUsedToCheckExistenceOnQueue() {
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager, completion: nil)
 
         XCTAssertEqual("coalescingOperationExampleIdentifier", queueManager.operationIdentifier)
     }
     
     // MARK: Operation
     
-    func test_addCoalescingOperation_identifierAssignedToOperation() {
-        CoalescingManager.addCoalescingOperation(queueManager, completion: nil)
+    func test_addExampleCoalescingOperation_identifierAssignedToOperation() {
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager, completion: nil)
         
         XCTAssertEqual("coalescingOperationExampleIdentifier", queueManager.enqueuedOperation.identifier)
     }
     
     // MARK: Callbacks
     
-    func test_addCoalescingOperation_identifierUsedWhenAddingClosureIfNonNil() {
-        CoalescingManager.addCoalescingOperation(queueManager) { (successful) in
+    func test_addExampleCoalescingOperation_identifierUsedWhenAddingClosureIfNonNil() {
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager) { (successful) in
             
         }
         
         XCTAssertEqual("coalescingOperationExampleIdentifier", queueManager.completionIdentifier)
     }
     
-    func test_addCoalescingOperation_closureNotAddedIfNil() {
-        CoalescingManager.addCoalescingOperation(queueManager, completion: nil)
+    func test_addExampleCoalescingOperation_closureNotAddedIfNil() {
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager, completion: nil)
         
         XCTAssertNil(queueManager.completionIdentifier)
     }
     
-    func test_addCoalescingOperation_multipleCallbacks() {
+    func test_addExampleCoalescingOperation_multipleCallbacks() {
         let expectationA = expectationWithDescription("First callback")
-        CoalescingManager.addCoalescingOperation(queueManager) { (successful) in
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager) { (successful) in
             expectationA.fulfill()
         }
         
         let expectationB = expectationWithDescription("Second callback")
-        CoalescingManager.addCoalescingOperation(queueManager) { (successful) in
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager) { (successful) in
             expectationB.fulfill()
         }
         
         queueManager.triggeredEnqueuedOperationsCallbacks()
         
-        waitForExpectationsWithTimeout(20, handler: nil)
+        waitForExpectationsWithTimeout(2, handler: nil)
     }
     
     // MARK: Clear
     
-    func test_addCoalescingOperation_clear() {
+    func test_addExampleCoalescingOperation_clear() {
         let expectation = expectationWithDescription("Multiple callbacks")
-        CoalescingManager.addCoalescingOperation(queueManager) { (successful) in
+        CoalescingExampleManager.addExampleCoalescingOperation(queueManager) { (successful) in
             expectation.fulfill()
         }
         

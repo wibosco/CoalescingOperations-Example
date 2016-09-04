@@ -1,5 +1,5 @@
 //
-//  CoalscingManager.swift
+//  CoalescingExampleManager.swift
 //  CoalescingOperations-Example
 //
 //  Created by Boles on 28/02/2016.
@@ -8,11 +8,16 @@
 
 import UIKit
 
-class CoalescingManager: NSObject {
+/**
+ An example manager that handles queuing operations.
+ 
+ It exists as we don't really want our VCs to know anything about coalescing or the queue.
+ */
+class CoalescingExampleManager: NSObject {
     
     // MARK: - Add
     
-    class func addCoalescingOperation(queueManager: QueueManager = QueueManager.sharedInstance, completion: (QueueManager.CompletionClosure)?) {
+    class func addExampleCoalescingOperation(queueManager: QueueManager = QueueManager.sharedInstance, completion: (QueueManager.CompletionClosure)?) {
         let coalescingOperationExampleIdentifier = "coalescingOperationExampleIdentifier"
         
         if let completion = completion {
@@ -20,7 +25,7 @@ class CoalescingManager: NSObject {
         }
         
         if !queueManager.operationIdentifierExistsOnQueue(coalescingOperationExampleIdentifier) {
-            let operation = CoalescingOperation()
+            let operation = CoalescingExampleOperation()
             operation.identifier = coalescingOperationExampleIdentifier
             operation.completion = {(successful) in
                 let closures = queueManager.completionClosures(coalescingOperationExampleIdentifier)

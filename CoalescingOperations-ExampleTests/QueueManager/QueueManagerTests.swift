@@ -20,6 +20,7 @@ class QueueManagerTests: XCTestCase {
         super.setUp()
         
         queueManager = QueueManager()
+        queueManager.queue.suspended = true
     }
     
     // MARK: Tests

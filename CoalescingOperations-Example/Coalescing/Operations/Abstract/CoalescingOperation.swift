@@ -31,16 +31,13 @@ class CoalescingOperation: NSOperation {
         return true
     }
     
-    // MARK: Main
+    // MARK: - Completion
     
-    override func main() {
-        super.main()
-        
-        sleep(1)
-        
-        if let completion = completion {
-            completion(successful: true)
+    func didComplete() {
+        callBackQueue.addOperationWithBlock {
+            if let completion = self.completion {
+                completion(successful: true)
+            }
         }
-        
     }
 }
