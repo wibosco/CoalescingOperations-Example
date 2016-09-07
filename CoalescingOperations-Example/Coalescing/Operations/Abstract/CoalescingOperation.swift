@@ -25,15 +25,62 @@ class CoalescingOperation: NSOperation {
         super.init()
     }
     
-    // MARK:
+    // MARK: - AsynchronousSupport
+    
+    private var _executing: Bool = false
+    override var executing: Bool {
+        get {
+            return _executing
+        }
+        set {
+            if _executing != newValue {
+                willChangeValueForKey("isExecuting")
+                _executing = newValue
+                didChangeValueForKey("isExecuting")
+            }
+        }
+    }
+    
+    private var _finished: Bool = false;
+    override var finished: Bool {
+        get {
+            return _finished
+        }
+        set {
+            if _finished != newValue {
+                willChangeValueForKey("isFinished")
+                _finished = newValue
+                didChangeValueForKey("isFinished")
+            }
+        }
+    }
     
     override var asynchronous: Bool {
         return true
     }
     
+    // MARK: - Lifecycle
+    
+    override func start() {
+        if cancelled {
+            finish()
+            return
+        } else {
+            executing = true;
+            finished = false;
+        }
+    }
+    
+    private func finish() {
+        executing = false
+        finished = true
+    }
+    
     // MARK: - Completion
     
     func didComplete() {
+        finish()
+        
         callBackQueue.addOperationWithBlock {
             if let completion = self.completion {
                 completion(successful: true)

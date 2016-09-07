@@ -13,9 +13,9 @@ import UIKit
  */
 class CoalescingExampleOperation: CoalescingOperation {
     
-    // MARK: Main
+    // MARK: Start
     
-    override func main() {
+    override func start() {
         super.main()
         
         sleep(1)
