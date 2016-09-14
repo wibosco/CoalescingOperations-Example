@@ -39,14 +39,10 @@ class QueueManager: NSObject {
     // MARK: - Callbacks
     
     func addNewCompletionClosure(completion: (CompletionClosure), identifier: String) {
-        var closures = completionClosures[identifier]
+        var closures = completionClosures[identifier] ?? [CompletionClosure]()
         
-        if closures == nil {
-            closures = [CompletionClosure]()
-        }
-        
-        closures!.append(completion)
-        completionClosures[identifier] = closures!
+        closures.append(completion)
+        completionClosures[identifier] = closures
     }
     
     func completionClosures(identifier: String) -> [CompletionClosure]? {
