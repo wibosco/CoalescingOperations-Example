@@ -20,7 +20,7 @@ class QueueManagerTests: XCTestCase {
         super.setUp()
         
         queueManager = QueueManager()
-        queueManager.queue.suspended = true
+        queueManager.queue.isSuspended = true
     }
     
     // MARK: Tests
@@ -28,11 +28,11 @@ class QueueManagerTests: XCTestCase {
     // MARK: Enqueue
     
     func test_enqueue_count() {
-        let operationA = NSOperation()
-        let operationB = NSOperation()
+        let operationA = Operation()
+        let operationB = Operation()
         
-        queueManager.enqueue(operationA)
-        queueManager.enqueue(operationB)
+        queueManager.enqueue(operation: operationA)
+        queueManager.enqueue(operation: operationB)
         
         XCTAssertEqual(queueManager.queue.operationCount, 2)
     }
@@ -88,7 +88,7 @@ class QueueManagerTests: XCTestCase {
             
             }, identifier: "test_identifier_should_not_be_returned")
         
-        let Closures = queueManager.completionClosures(identifier)!
+        let Closures = queueManager.completionClosures(forIdentifier: identifier)!
         
         XCTAssertEqual(2, Closures.count)
     }
@@ -99,17 +99,17 @@ class QueueManagerTests: XCTestCase {
         let identifier = "test_identifier"
         let operation = CoalescingOperation()
         operation.identifier = identifier
-        queueManager.enqueue(operation)
+        queueManager.enqueue(operation: operation)
         
-        XCTAssertTrue(queueManager.operationIdentifierExistsOnQueue(identifier))
+        XCTAssertTrue(queueManager.operationIdentifierExistsOnQueue(forIdentifier: identifier))
     }
     
     func test_operationIdentifierExistsOnQueue_notAdded() {
         let operation = CoalescingOperation()
         operation.identifier = "test_identifier"
-        queueManager.enqueue(operation)
+        queueManager.enqueue(operation: operation)
         
-        XCTAssertFalse(queueManager.operationIdentifierExistsOnQueue("test_identifier_not_on_queue"))
+        XCTAssertFalse(queueManager.operationIdentifierExistsOnQueue(forIdentifier: "test_identifier_not_on_queue"))
     }
     
     // MARK: Clear
@@ -125,7 +125,7 @@ class QueueManagerTests: XCTestCase {
             
             }, identifier: identifier)
         
-        queueManager.clearClosures(identifier)
+        queueManager.clearClosures(forIdentifier: identifier)
         
         XCTAssertEqual(0, queueManager.completionClosures.count)
     }

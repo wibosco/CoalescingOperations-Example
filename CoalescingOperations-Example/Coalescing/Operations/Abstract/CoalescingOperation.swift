@@ -8,19 +8,19 @@
 
 import Foundation
 
-class CoalescingOperation: NSOperation {
+class CoalescingOperation: Operation {
     
     // MARK: Accessors
 
     var identifier: String?
     
     var completion: (QueueManager.CompletionClosure)?
-    private var callBackQueue: NSOperationQueue
+    private var callBackQueue: OperationQueue
     
     // MARK: Init
     
     override init() {
-        self.callBackQueue = NSOperationQueue.currentQueue()!
+        self.callBackQueue = OperationQueue.current ?? OperationQueue.main
         
         super.init()
     }
@@ -28,52 +28,52 @@ class CoalescingOperation: NSOperation {
     // MARK: - AsynchronousSupport
     
     private var _executing: Bool = false
-    override var executing: Bool {
+    override var isExecuting: Bool {
         get {
             return _executing
         }
         set {
             if _executing != newValue {
-                willChangeValueForKey("isExecuting")
+                willChangeValue(forKey: "isExecuting")
                 _executing = newValue
-                didChangeValueForKey("isExecuting")
+                didChangeValue(forKey: "isExecuting")
             }
         }
     }
     
     private var _finished: Bool = false;
-    override var finished: Bool {
+    override var isFinished: Bool {
         get {
             return _finished
         }
         set {
             if _finished != newValue {
-                willChangeValueForKey("isFinished")
+                willChangeValue(forKey: "isFinished")
                 _finished = newValue
-                didChangeValueForKey("isFinished")
+                didChangeValue(forKey: "isFinished")
             }
         }
     }
     
-    override var asynchronous: Bool {
+    override var isAsynchronous: Bool {
         return true
     }
     
     // MARK: - Lifecycle
     
     override func start() {
-        if cancelled {
+        if isCancelled {
             finish()
             return
         } else {
-            executing = true;
-            finished = false;
+            isExecuting = true;
+            isFinished = false;
         }
     }
     
     private func finish() {
-        executing = false
-        finished = true
+        isExecuting = false
+        isFinished = true
     }
     
     // MARK: - Completion
@@ -81,9 +81,9 @@ class CoalescingOperation: NSOperation {
     func didComplete() {
         finish()
         
-        callBackQueue.addOperationWithBlock {
+        callBackQueue.addOperation {
             if let completion = self.completion {
-                completion(successful: true)
+                completion(true)
             }
         }
     }

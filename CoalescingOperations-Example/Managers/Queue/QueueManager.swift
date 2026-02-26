@@ -10,12 +10,12 @@ import Foundation
 
 class QueueManager: NSObject {
     
-    typealias CompletionClosure = (successful: Bool) -> Void
+    typealias CompletionClosure = (_ successful: Bool) -> Void
     
     // MARK: - Accessors
     
-    lazy var queue: NSOperationQueue = {
-        let queue = NSOperationQueue()
+    lazy var queue: OperationQueue = {
+        let queue = OperationQueue()
         
         return queue;
     }()
@@ -32,37 +32,33 @@ class QueueManager: NSObject {
     
     // MARK: Addition
     
-    func enqueue(operation: NSOperation) {
+    func enqueue(operation: Operation) {
         queue.addOperation(operation)
     }
     
-    // MARK: - Callbacks
+    // MARK: - ClosureManagement
     
-    func addNewCompletionClosure(completion: (CompletionClosure), identifier: String) {
+    func addNewCompletionClosure(_ completion: @escaping (CompletionClosure), identifier: String) {
         var closures = completionClosures[identifier] ?? [CompletionClosure]()
         
         closures.append(completion)
         completionClosures[identifier] = closures
     }
     
-    func completionClosures(identifier: String) -> [CompletionClosure]? {
+    func completionClosures(forIdentifier identifier: String) -> [CompletionClosure]? {
         return completionClosures[identifier]
     }
     
-    // MARK: Existing
-    
-    func operationIdentifierExistsOnQueue(identifier: String) -> Bool {
+    func operationIdentifierExistsOnQueue(forIdentifier identifier: String) -> Bool {
         let operations = self.queue.operations
         
-        let identifiers = (operations as! [CoalescingOperation]).map{$0.identifier}
-        let exists = identifiers.contains({ identifier == $0 })
+        let identifiers = (operations as! [CoalescingOperation]).map{ $0.identifier }
+        let exists = identifiers.contains(where: { identifier == $0 })
         
         return exists
     }
     
-    // MARK: Clear
-    
-    func clearClosures(identifier: String) {
-        completionClosures.removeValueForKey(identifier)
+    func clearClosures(forIdentifier identifier: String) {
+        completionClosures.removeValue(forKey: identifier)
     }
 }

@@ -24,22 +24,22 @@ class CoalescingExampleManager: NSObject {
             queueManager.addNewCompletionClosure(completion, identifier: coalescingOperationExampleIdentifier)
         }
         
-        if !queueManager.operationIdentifierExistsOnQueue(coalescingOperationExampleIdentifier) {
+        if !queueManager.operationIdentifierExistsOnQueue(forIdentifier: coalescingOperationExampleIdentifier) {
             let operation = CoalescingExampleOperation()
             operation.identifier = coalescingOperationExampleIdentifier
             operation.completion = {(successful) in
-                let closures = queueManager.completionClosures(coalescingOperationExampleIdentifier)
+                let closures = queueManager.completionClosures(forIdentifier: coalescingOperationExampleIdentifier)
                 
                 if let closures = closures {
                     for closure in closures {
-                        closure(successful: successful)
+                        closure(successful)
                     }
                     
-                    queueManager.clearClosures(coalescingOperationExampleIdentifier)
+                    queueManager.clearClosures(forIdentifier: coalescingOperationExampleIdentifier)
                 }
             }
             
-            queueManager.enqueue(operation)
+            queueManager.enqueue(operation: operation)
         }
     }
 }
