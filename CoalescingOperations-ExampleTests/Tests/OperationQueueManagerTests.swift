@@ -12,14 +12,14 @@ class QueueManagerTests: XCTestCase {
     
     // MARK: Accessors
     
-    var queueManager: QueueManager!
+    var queueManager: OperationQueueManager!
     
     // MARK: Lifecycle
     
     override func setUp() {
         super.setUp()
         
-        queueManager = QueueManager()
+        queueManager = OperationQueueManager()
         queueManager.queue.isSuspended = true
     }
     

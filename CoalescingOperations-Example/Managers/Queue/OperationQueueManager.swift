@@ -8,7 +8,7 @@
 
 import Foundation
 
-class QueueManager: NSObject {
+class OperationQueueManager: NSObject {
     
     typealias CompletionClosure = (_ successful: Bool) -> Void
     
@@ -28,7 +28,7 @@ class QueueManager: NSObject {
     
     // MARK: - SharedInstance
     
-    static let sharedInstance = QueueManager()
+    static let sharedInstance = OperationQueueManager()
     
     // MARK: Addition
     

@@ -17,7 +17,7 @@ class CoalescingExampleManager: NSObject {
     
     // MARK: - Add
     
-    class func addExampleCoalescingOperation(queueManager: QueueManager = QueueManager.sharedInstance, completion: (QueueManager.CompletionClosure)?) {
+    class func addExampleCoalescingOperation(queueManager: OperationQueueManager = OperationQueueManager.sharedInstance, completion: (OperationQueueManager.CompletionClosure)?) {
         let coalescingOperationExampleIdentifier = "coalescingOperationExampleIdentifier"
         
         if let completion = completion {

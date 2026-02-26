@@ -14,7 +14,7 @@ class CoalescingOperation: Operation {
 
     var identifier: String?
     
-    var completion: (QueueManager.CompletionClosure)?
+    var completion: (OperationQueueManager.CompletionClosure)?
     private var callBackQueue: OperationQueue
     
     // MARK: Init
