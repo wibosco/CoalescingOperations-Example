@@ -9,47 +9,59 @@
 import Foundation
 
 final class StubOperationQueueManager: OperationQueueManager {
-    var operationIdentifier: String!
-    var completionIdentifier: String!
-    var clearIdentifier: String!
-    var enqueuedOperation: CoalescingOperation!
-    var numberOfTimesEnqueuedWasCalled = 0
-    var closures = [CompletionClosure]()
+    enum Event: Equatable {
+        case operationIdentifierExistsOnQueue(String)
+        case addNewCompletionClosure(CompletionClosure, String)
+        case completionClosures(String)
+        case enqueue(Operation)
+        case clearClosures(String)
+        
+        static func == (lhs: Event, rhs: Event) -> Bool {
+            switch (lhs, rhs) {
+            case let (.operationIdentifierExistsOnQueue(lhsID), .operationIdentifierExistsOnQueue(rhsID)):
+                return lhsID == rhsID
+            case let (.addNewCompletionClosure(_, lhsID), .addNewCompletionClosure(_, rhsID)):
+                return lhsID == rhsID
+            case let (.completionClosures(lhsID), .completionClosures(rhsID)):
+                return lhsID == rhsID
+            case let (.enqueue(lhsOp), .enqueue(rhsOp)):
+                return lhsOp == rhsOp
+            case let (.clearClosures(lhsID), .clearClosures(rhsID)):
+                return lhsID == rhsID
+            default:
+                return false
+            }
+        }
+    }
+    
+    private(set) var events: [Event] = []
+    
+    var operationIdentifierExistsOnQueueToReturn = false
+    var completionClosuresToReturn = [CompletionClosure]()
     
     // MARK: - Overrides
     
-    override func operationIdentifierExistsOnQueue(forIdentifier identifier: String) -> Bool {
-        operationIdentifier = identifier
+    func operationIdentifierExistsOnQueue(forIdentifier identifier: String) -> Bool {
+        events.append(.operationIdentifierExistsOnQueue(identifier))
         
-        return numberOfTimesEnqueuedWasCalled > 0
+        return operationIdentifierExistsOnQueueToReturn
     }
     
-    override func addNewCompletionClosure(_ completion: @escaping (CompletionClosure), identifier: String) {
-        completionIdentifier = identifier
+    func addNewCompletionClosure(_ completion: @escaping (CompletionClosure), identifier: String) {
+        events.append(.addNewCompletionClosure(completion, identifier))
+    }
+    
+    func completionClosures(forIdentifier identifier: String) -> [CompletionClosure]? {
+        events.append(.completionClosures(identifier))
         
-        closures.append(completion)
+        return completionClosuresToReturn
     }
     
-    override func completionClosures(forIdentifier identifier: String) -> [CompletionClosure]? {
-        return closures
+    func enqueue(operation: Operation) {
+        events.append(.enqueue(operation))
     }
     
-    override func enqueue(operation: Operation) {
-        enqueuedOperation = operation as! CoalescingOperation
-        
-        numberOfTimesEnqueuedWasCalled += 1
-    }
-    
-    override func clearClosures(forIdentifier identifier: String) {
-        clearIdentifier = identifier
-        super.clearClosures(forIdentifier: identifier)
-    }
-    
-    // MARK: - Simulated
-    
-    func triggeredEnqueuedOperationsCallbacks() {
-        if let completion = enqueuedOperation.completion {
-            completion(true)
-        }
+    func clearClosures(forIdentifier identifier: String) {
+        events.append(.clearClosures(identifier))
     }
 }

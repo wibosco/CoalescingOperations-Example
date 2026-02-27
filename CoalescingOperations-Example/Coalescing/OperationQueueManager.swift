@@ -8,19 +8,27 @@
 
 import Foundation
 
-class OperationQueueManager: NSObject {
-    
+protocol OperationQueueManager {
     typealias CompletionClosure = (_ successful: Bool) -> Void
+    
+    func enqueue(operation: Operation)
+    func addNewCompletionClosure(_ completion: @escaping (CompletionClosure), identifier: String)
+    func completionClosures(forIdentifier identifier: String) -> [CompletionClosure]?
+    func operationIdentifierExistsOnQueue(forIdentifier identifier: String) -> Bool
+    func clearClosures(forIdentifier identifier: String)
+}
+
+final class DefaultOperationQueueManager: OperationQueueManager {
     
     // MARK: - Accessors
     
-    lazy var queue: OperationQueue = {
+    private lazy var queue: OperationQueue = {
         let queue = OperationQueue()
         
         return queue;
     }()
     
-    lazy var completionClosures: [String: [CompletionClosure]] = {
+    private lazy var completionClosures: [String: [CompletionClosure]] = {
         let completionClosures = [String: [CompletionClosure]]()
         
         return completionClosures
@@ -28,7 +36,7 @@ class OperationQueueManager: NSObject {
     
     // MARK: - SharedInstance
     
-    static let sharedInstance = OperationQueueManager()
+    static let shared = DefaultOperationQueueManager()
     
     // MARK: Addition
     
